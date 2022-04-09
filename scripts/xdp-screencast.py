@@ -83,7 +83,7 @@ def play_pipewire_stream(node_id):
     fd_object = portal.OpenPipeWireRemote(session, empty_dict,
                                           dbus_interface=screen_cast_iface)
     fd = fd_object.take()
-    pipeline = Gst.parse_launch('pipewiresrc fd=%d path=%u ! videoconvert ! xvimagesink'%(fd, node_id))
+    pipeline = Gst.parse_launch('pipewiresrc fd=%d path=%u client-name=%s ! videoconvert ! xvimagesink'%(fd, node_id, "xdp-screencast.py"))
     pipeline.set_state(Gst.State.PLAYING)
     pipeline.get_bus().connect('message', on_gst_message)
 
